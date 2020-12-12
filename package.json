@@ -1,0 +1,25 @@
+{
+  "name": "crescendo-backend",
+  "version": "1.0.0",
+  "description": "Backend for crescendo application",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "npm start",
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/meetcshah19/crescendo-backend.git"
+  },
+  "author": "CapriciousRebel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/meetcshah19/crescendo-backend/issues"
+  },
+  "homepage": "https://github.com/meetcshah19/crescendo-backend#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^2.0.6"
+  }
+}
