@@ -20,6 +20,7 @@
   "homepage": "https://github.com/meetcshah19/crescendo-backend#readme",
   "dependencies": {
     "express": "^4.17.1",
+    "express-fileupload": "^1.2.0",
     "nodemon": "^2.0.6"
   }
 }
