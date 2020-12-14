@@ -19,8 +19,11 @@
   },
   "homepage": "https://github.com/meetcshah19/crescendo-backend#readme",
   "dependencies": {
+    "cookie-parser": "^1.4.5",
     "express": "^4.17.1",
     "express-fileupload": "^1.2.0",
+    "express-session": "^1.17.1",
+    "mkdirp": "^1.0.4",
     "nodemon": "^2.0.6"
   }
 }
