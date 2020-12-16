@@ -18,7 +18,13 @@ app.use(
     saveUninitialized: true,
   })
 );
-
+app.get("/status", function (req, res) {
+  console.log("in status");
+  console.log(req.query["query"])
+  if (req.query["query"] == "split") {
+    res.status(200).send("split success");
+  }
+});
 app.post("/upload", function (req, res) {
   console.log(req.files.audio);
   if (!req.files || Object.keys(req.files).length === 0) {
