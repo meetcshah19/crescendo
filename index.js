@@ -39,7 +39,7 @@ app.post("/upload", function (req, res) {
   File.mv(FilePath + File.name, function (err) {
     if (err) return res.status(500).send(err);
     console.log("success");
-    res.status(400).send("File uploaded");
+    res.status(200).send("File uploaded");
   });
 });
 
