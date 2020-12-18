@@ -1,1 +1,2 @@
-GET http://localhost:6900
+
+POST http://localhost:6900/upload
