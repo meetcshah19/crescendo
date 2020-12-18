@@ -24,6 +24,7 @@
     "express-fileupload": "^1.2.0",
     "express-session": "^1.17.1",
     "mkdirp": "^1.0.4",
-    "nodemon": "^2.0.6"
+    "nodemon": "^2.0.6",
+    "react": "^17.0.1"
   }
 }
