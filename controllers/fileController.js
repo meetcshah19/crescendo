@@ -1,9 +1,7 @@
-import uploadFile from "../middlewares/upload.js";
 import fs from "fs";
 
 export const upload = async (req, res) => {
   try {
-    console.log("<<controller>>");
     console.log(req.file);
 
     if (req.file == undefined) {
@@ -26,7 +24,7 @@ export const upload = async (req, res) => {
 };
 
 export const getListFiles = (req, res) => {
-  const directoryPath = __basedir + "/uploads/" + req.sessionID + "/";
+  const directoryPath = __basedir + "/uploads/";
 
   fs.readdir(directoryPath, function (err, files) {
     if (err) {
@@ -40,7 +38,7 @@ export const getListFiles = (req, res) => {
     files.forEach((file) => {
       fileInfos.push({
         name: file,
-        url: baseUrl + file,
+        url: "/uploads/" + file,
       });
     });
 
@@ -50,7 +48,7 @@ export const getListFiles = (req, res) => {
 
 export const download = (req, res) => {
   const fileName = req.params.name;
-  const directoryPath = __basedir + +"/uploads/" + req.sessionID + "/";
+  const directoryPath = __basedir + +"/uploads/";
 
   res.download(directoryPath + fileName, fileName, (err) => {
     if (err) {

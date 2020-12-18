@@ -1,5 +1,5 @@
 import express from "express";
-import uploadFile from "../middlewares/upload.js";
+import uploadFileMiddleware from "../middlewares/upload.js";
 import {
   upload,
   getListFiles,
@@ -8,7 +8,7 @@ import {
 
 const fileRouter = express.Router();
 
-fileRouter.post("/upload", uploadFile, upload);
+fileRouter.post("/upload", uploadFileMiddleware, upload);
 fileRouter.get("/files", getListFiles);
 fileRouter.get("/files/:name", download);
 
