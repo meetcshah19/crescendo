@@ -1,24 +1,20 @@
 import express from "express";
+import session from "express-session";
 import cors from "cors";
-import fileRouter from "./routes/fileRouter.js";
+import path from "path";
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
-import fs from "fs";
-import path from "path";
-import session from "express-session";
-import Pusher from "pusher";
-import http from "http";
+import router from "./routes/router.js";
 
+global.__basedir = process.cwd();
 const app = express();
 const port = 6900;
-global.__basedir = process.cwd();
 
 var corsOptions = {
   origin: "http://23.101.172.131:3000",
   origin: "http://localhost:3000",
 };
 
-app.use(cookieParser());
 app.use(
   session({
     secret: "1@#@#%FHGKL@#hdsfg9*6", // just a long random string
@@ -27,9 +23,12 @@ app.use(
   })
 );
 app.use(cors(corsOptions));
+app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(fileRouter);
+
+// Routes
+app.use(router);
 app.use("/uploads", express.static(path.join(__basedir, "uploads")));
 app.use("/images", express.static(path.join(__basedir, "images")));
 
