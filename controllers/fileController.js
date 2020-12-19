@@ -3,22 +3,17 @@ import fs from "fs";
 export const upload = async (req, res) => {
   try {
     console.log(req.file);
-
     if (req.file == undefined) {
       return res.status(400).send({ message: "Please upload a file!" });
     }
-    // temporary timeout
+    // add the spleeter code here
     setTimeout(() => {
       res.status(200).send({
         message: "Uploaded the file successfully: " + req.file.originalname,
+        client_id: req.sessionID,
       });
-    }, 5000);
+    }, 1000);
   } catch (err) {
-    if (err.code == "LIMIT_FILE_SIZE") {
-      return res.status(500).send({
-        message: "File size cannot be larger than 2MB!",
-      });
-    }
     res.status(500).send({
       message: `Could not upload the file: ${req.file.originalname}. ${err}`,
     });
@@ -26,7 +21,9 @@ export const upload = async (req, res) => {
 };
 
 export const getListFiles = (req, res) => {
-  const directoryPath = __basedir + "/uploads/";
+  const directoryPath =
+    __basedir + "/uploads/" + req.params.client_id + "/output/";
+  console.log(directoryPath);
 
   fs.readdir(directoryPath, function (err, files) {
     if (err) {
@@ -40,7 +37,11 @@ export const getListFiles = (req, res) => {
     files.forEach((file) => {
       fileInfos.push({
         name: file,
-        url: "/uploads/" + file,
+        url:
+          "http://localhost:6900/uploads/" +
+          req.params.client_id +
+          "/output/" +
+          file,
       });
     });
 
@@ -48,6 +49,7 @@ export const getListFiles = (req, res) => {
   });
 };
 
+// ignore
 export const download = (req, res) => {
   const fileName = req.params.name;
   const directoryPath = __basedir + +"/uploads/";
