@@ -47,6 +47,7 @@ export const getListFiles = (req, res) => {
         name: file,
         url:
           __baseURL +
+          "/uploads/" +
           req.query.client_id +
           "/" +
           req.query.output_folder +
