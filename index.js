@@ -7,6 +7,7 @@ import bodyParser from "body-parser";
 import router from "./routes/router.js";
 
 global.__basedir = process.cwd();
+global.__baseURL = "http://localhost:6900";
 const app = express();
 const port = 6900;
 

@@ -46,7 +46,7 @@ export const getListFiles = (req, res) => {
       fileInfos.push({
         name: file,
         url:
-          "http://localhost:6900/uploads/" +
+          __baseURL +
           req.query.client_id +
           "/" +
           req.query.output_folder +
