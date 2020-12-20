@@ -61,6 +61,18 @@ export const getListFiles = (req, res) => {
   });
 };
 
+// returns the link to final mp4 file
+export const getOutputFile = (req, res) => {
+
+  res.status(200).send({
+    url: __baseURL +
+      "/uploads/" +
+      req.query.client_id +
+      "/processing-video.mp4"
+
+  });
+}
+
 // writes the data.txt file in /uploads/<client_id>
 export const chooseTemplate = async (req, res) => {
   let data =
