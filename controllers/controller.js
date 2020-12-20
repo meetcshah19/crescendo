@@ -63,14 +63,25 @@ export const getListFiles = (req, res) => {
 
 // returns the link to final mp4 file
 export const getOutputFile = (req, res) => {
+  console.log("<<getOutputFile>>")
 
-  res.status(200).send({
-    url: __baseURL +
-      "/uploads/" +
-      req.query.client_id +
-      "/processing-video.mp4"
+  let filePath = __basedir + "/uploads/" +
+    req.query.client_id +
+    "/processing-video.mp4"
 
-  });
+  if (fs.existsSync(filePath)) {
+    console.log("File Found!")
+    return res.status(200).send({
+      url: __baseURL +
+        "/uploads/" +
+        req.query.client_id +
+        "/processing-video.mp4"
+    });
+  }
+  else {
+    console.log("File Not Found!")
+    return res.status(404)
+  }
 }
 
 // writes the data.txt file in /uploads/<client_id>
@@ -92,4 +103,6 @@ export const chooseTemplate = async (req, res) => {
         : res.status(200).send({ Status: "File written successfully" });
     }
   );
+
+  // parse the data.txt and start the processing command here
 };
