@@ -1,7 +1,9 @@
 from scipy.io import wavfile
 from math import sqrt
+import sys
 
 values = []
+path_to_file = sys.argv[1]
 
 def Nmaxelements(list1, N):
     final_list = []
@@ -30,8 +32,8 @@ def calc_rms(a):
 
 def generate_file(name):
     stemValues = []
-    samplerate, data = wavfile.read(name + '.wav')
-    f = open(name + '.txt', 'w')
+    samplerate, data = wavfile.read(path_to_file + name + '.wav')
+    f = open(path_to_file + name + '.txt', 'w')
     skip = int(samplerate / 24)
     high = 0
     for i in range(0, len(data), skip):
