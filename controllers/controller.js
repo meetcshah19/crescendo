@@ -8,14 +8,16 @@ export const upload = async (req, res) => {
     if (req.file == undefined) {
       return res.status(400).send({ message: "Please upload a file!" });
     }
-    // makes the file at /uploads/4rkXQFiK-gKYBH1W3RnXj_bRkYFpbdZy/lost/
-    setTimeout(() => {
+
+    cp.exec("cd ../spleeterenv/bin/; ./python3 spleeter separate -i ../../cr3sc3ndo/uploads/" + req.sessionID + "/" + req.file.originalname + " -p spleeter:5stems -o ../../cr3sc3ndo/uploads/" + req.sessionID, "/bin/bash", (data, stderr, std) => {
+      console.log(data + std + stderr);
       res.status(200).send({
         message: "Uploaded the file successfully: " + req.file.originalname,
         client_id: req.sessionID,
         output_folder: req.file.originalname.split(".")[0],
       });
-    }, 5000);
+    });
+
   } catch (err) {
     res.status(500).send({
       message: `Could not upload the file: ${req.file.originalname}. ${err}`,

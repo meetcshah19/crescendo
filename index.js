@@ -13,7 +13,6 @@ const port = 6900;
 
 var corsOptions = {
   origin: "http://23.101.172.131:3000",
-  origin: "http://localhost:3000",
 };
 
 app.use(
