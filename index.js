@@ -7,12 +7,12 @@ import bodyParser from "body-parser";
 import router from "./routes/router.js";
 
 global.__basedir = process.cwd();
-global.__baseURL = "http://localhost:6900";
+global.__baseURL = "http://23.101.172.131:6900";
 const app = express();
 const port = 6900;
 
 var corsOptions = {
-    origin: "http://localhost:3000",
+    origin: "*",
 };
 
 app.use(
