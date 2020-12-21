@@ -9,7 +9,7 @@ export const upload = async (req, res) => {
       return res.status(400).send({ message: "Please upload a file!" });
     }
 
-    cp.exec("cd ../spleeterenv/bin/; ./python3 spleeter separate -i ../../cr3sc3ndo/uploads/" + req.sessionID + "/" + req.file.originalname + " -p spleeter:5stems -o ../../cr3sc3ndo/uploads/" + req.sessionID, "/bin/bash", (data, stderr, std) => {
+    cp.exec("cd ../spleeterenv/bin/; ./python3 spleeter separate -i ../../cr3sc3ndo/uploads/" + req.sessionID + "/" + req.file.originalname + " -p spleeter:5stems -o ../../cr3sc3ndo/uploads/" + req.sessionID + ";cd ../../cr3sc3ndo; mv ./uploads/" + req.sessionID + "/" + req.file.originalname + " ./uploads/" + req.sessionID + "/song.mp3", "/bin/bash", (data, stderr, std) => {
       console.log(data + std + stderr);
       res.status(200).send({
         message: "Uploaded the file successfully: " + req.file.originalname,
@@ -67,7 +67,7 @@ export const getOutputFile = (req, res) => {
 
   let filePath = __basedir + "/uploads/" +
     req.query.client_id +
-    "/processing-video.mp4"
+    "/output.mp4"
 
   if (fs.existsSync(filePath)) {
     console.log("File Found!")
@@ -75,7 +75,7 @@ export const getOutputFile = (req, res) => {
       url: __baseURL +
         "/uploads/" +
         req.query.client_id +
-        "/processing-video.mp4"
+        "/output.mp4"
     });
   }
   else {
@@ -89,10 +89,10 @@ export const chooseTemplate = async (req, res) => {
   let data =
     "scale: " +
     req.body.scale +
-    "\nwater: " +
+    ".txt\nbloom: " +
     req.body.water +
-    "\nparticles: " +
-    req.body.particles;
+    ".txt\nvibrate: " +
+    req.body.particles + ".txt";
 
   fs.writeFile(
     __basedir + "/uploads/" + req.body.client_id + "/data.txt",
@@ -100,9 +100,12 @@ export const chooseTemplate = async (req, res) => {
     (err) => {
       return err
         ? res.status(500).send({ Status: "Failed to write file!" })
-        : res.status(200).send({ Status: "File written successfully" });
+        : console.log("file written");
     }
   );
 
   // parse the data.txt and start the processing command here
+  cp.exec("python3 audio_to_text.py uploads/" + req.body.client_id + "/ >A; echo \"../crescndo-final/cr3sc3ndo/uploads/" + req.body.client_id + "\">../../sketch_201025a/path.txt; xvfb-run /home/meet/processing-3.5.4/processing-java --sketch=/home/meet/sketch_201025a --run>A2 && cp ../../sketch_201025a/processing-movie.mp4 uploads/" + req.body.client_id + "/ ; ffmpeg -i processing-video.mp4 -i song.mp3 -map 0:v -map 1:a -c:v copy -shortest output.mp4", "/bin/bash", (data, stderr, std) => {
+    console.log(data + err + std);
+  });
 };
