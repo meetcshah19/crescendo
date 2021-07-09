@@ -12,10 +12,8 @@ VR Demo : [Watch Here!](https://vimeo.com/493341739) <br>
 
 ### Setup
 
-Setup the frontend repository using [this](https://github.com/CapriciousRebel/crescendo-frontend).<br>
-Then run :
+- Clone the repository and `cd` into it
+- Make a folder named: `uploads`
+- Then run `npm install && npm start`
 
-```
-npm install
-npm start
-```
+frontend: https://github.com/CapriciousRebel/crescendo-frontend
